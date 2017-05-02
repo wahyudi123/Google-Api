@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Places Searchbox</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+  
+    
+  </head>
+  <body>
+    <input id="pac-input" class="controls" onchange="" type="text" placeholder="Search Box">
+    <div id="coba">
+    	<button class="ini">Direction <i class="fa fa-chevron-circle-right" aria-hidden="true"></i></button>
+    </div>
+    	<!-- -->
+    <div id="infowindow-content">
+      <span id="nm_tempat"  class="title"></span><br>
+      <i class="fa fa-mobile" aria-hidden="true"></i>  <span id="telepon"></span><br>
+      <i class="fa fa-map-marker" aria-hidden="true"></i>  <span id="alamat"></span><br>
+      <i class="fa fa-globe" aria-hidden="true"></i>  <a href="#"><span id="web"></span></a>
+    </div>
+
+
+    <div class ="kotak" id="info">
+    	
+    	<div id="mode-selector" class="controls">
+	      <input type="radio" name="type" id="changemode-walking" checked="checked">
+	      <label for="changemode-walking">Walking</label>
+
+	      <input type="radio" name="type" id="changemode-transit">
+	      <label for="changemode-transit">Transit</label>
+
+	      <input type="radio" name="type" id="changemode-driving">
+	      <label for="changemode-driving">Driving</label>
+	    </div>
+
+	    <button class="ini1" id="tukar" onclick="tukar()"> <i class="fa fa-arrows-v" aria-hidden="true" ></i></i></button>
+
+    	  <div class="infoo">
+        	  <input id="origin-input" class="controls" type="text" placeholder="Lokasi Awal">
+    	      <input id="destination-input" class="controls" type="text" placeholder="Lokasi Tujuan">
+    	        <br>
+    	        <br>
+        	  <span id="place-name"  class="title"> </span><br>
+    	      <i class="fa fa-mobile" aria-hidden="true"></i> <span id="phone"> - </span><br>
+    	      <i class="fa fa-map-marker" aria-hidden="true"></i> <span id="place-address"> - </span><br>
+    	      <i class="fa fa-globe" aria-hidden="true"></i> <span id="website"> - </span>
+        </div>
+    	  <div class="judul">
+    	  	Information	
+    	  </div>
+	      
+    </div>
+    <div id="map"></div>
+    
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA87t3N6POSjSz7N1DWJmxw9jnwzZG9tyc&libraries=places&callback=initAutocomplete"
+         async defer></script>
+    <script type="text/javascript" src="fung.js"></script>
+  </body>
+</html>
