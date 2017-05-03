@@ -44,23 +44,28 @@
 	    <button class="ini1" id="tukar" onclick="tukar()"> <i class="fa fa-arrows-v" aria-hidden="true" ></i></i></button>
 
     	  <div class="infoo">
+
         	  <input id="origin-input" class="controls" type="text" placeholder="Lokasi Awal">
     	      <input id="destination-input" class="controls" type="text" placeholder="Lokasi Tujuan">
     	        <br>
     	        <br>
+        <div class="judul">
+          Information
+        </div>
+            <div id="fotolah"></div>
         	  <span id="place-name"  class="title"> </span><br>
     	      <i class="fa fa-mobile" aria-hidden="true"></i> <span id="phone"> - </span><br>
     	      <i class="fa fa-map-marker" aria-hidden="true"></i> <span id="place-address"> - </span><br>
     	      <i class="fa fa-globe" aria-hidden="true"></i> <span id="website"> - </span>
         </div>
-    	  <div class="judul">
-    	  	Information	
-    	  </div>
+    	  
 	      
     </div>
     <div id="map"></div>
+    <div id="place-list"></div>
     
 
+    
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA87t3N6POSjSz7N1DWJmxw9jnwzZG9tyc&libraries=places&callback=initAutocomplete"
          async defer></script>

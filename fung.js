@@ -17,6 +17,8 @@
         var telepon = document.getElementById('telepon');
         var web = document.getElementById('web');
 
+        var foto = document.getElementById('fotolah');
+
         var c;
 
       function initAutocomplete() {
@@ -75,13 +77,41 @@
 
           placename.textContent = place.name;
           placeaddress.textContent = place.formatted_address;
-          phone.textContent = place.formatted_phone_number;
+          phone.textContent = place.rating;
           website.textContent = place.website;
 
           nmtempat.textContent = place.name;
           alamat.textContent = place.formatted_address;
           telepon.textContent = place.formatted_phone_number;
+
           web.textContent = place.website;
+          var link = document.createElement("a");
+          link.setAttribute("href", web.textContent);
+          link.innerHTML = web.textContent;
+          // var span = document.createElement("span");
+          // span.appendChild(link);
+          // document.body.appendChild(span);
+          document.getElementById('website').appendChild(link);
+
+          //foto.textContent = place.icon;
+          foto = place.photos[0].getUrl({maxWidth: 1300, maxHeight: 100});
+          // alert(foto.textContent);
+
+              var img = document.createElement("IMG");
+              img.setAttribute('src', foto + "photo.jpg");
+
+              document.getElementById('fotolah').appendChild(img);
+              //document.getElementById('fotolah').removeChild(img);
+
+            // var photoUrl = place.photos[0].getUrl({maxWidth: 400, maxHeight: 400});
+            // var img = document.createElement("img");
+            // img.setAttribute('src', photoUrl + "photo.jpg");
+            // document.getElementById('place-list').appendChild(img);
+
+          //foto.setAttribute("src", foto.textContent);
+          //document.getElementById("foto").appendChild(foto);
+          //foto.src = foto.textContent;
+          
 
           infowindow.setContent(document.getElementById('infowindow-content'));
 
