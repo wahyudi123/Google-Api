@@ -2,6 +2,30 @@
         height: 100%;
         width: 100%;
       }
+
+
+      /* Let's get this party started */
+      ::-webkit-scrollbar {
+          width: 9px;
+      }
+
+      /* Track */
+      ::-webkit-scrollbar-track {
+          -webkit-box-shadow: inset 0 0 6px rgb(10, 9, 0); 
+          -webkit-border-radius: 5px;
+          border-radius: 5px;
+      }
+       
+      /* Handle */
+      ::-webkit-scrollbar-thumb {
+          -webkit-border-radius: 5px;
+          border-radius: 5px;
+          background: rgb(10, 9, 0)
+          -webkit-box-shadow: inset 0 0 6px rgb(10, 9, 0); 
+      }
+      ::-webkit-scrollbar-thumb:window-inactive {
+        background: rgb(10, 9, 0); 
+      }
     
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -54,7 +78,7 @@
       }
 
       .ini1{
-      	background-color: #555555;
+      	background-color: #080404;
         border: none;
       	color: white;
         font-family: Roboto;
@@ -115,8 +139,8 @@
         color: #fff;
         background-color: #037084;
         margin-left: 8px;
-        padding: 5px 11px 0px 11px;
-        width: 220px;
+        padding: 3px 2px 0px 15px;
+        width: 217px;
         display: none;
         float: left;
       }
@@ -135,15 +159,22 @@
 
       .title {
         font-weight: bold;
+        text-align: center;
+        margin-left: 70px;
+        font-size: 20px;
+        color: white;
+        margin-top:-40px; 
       }
 
       .kotak{
-      	background-color: #78CEDE;
+        height: 500px;
+      	background-color: #753535;
       	width: 300px;
       	margin-right: 20px;
       	padding: 20px;
-      	opacity: 0.85;
+      	opacity: 1;
         display: none;
+        overflow: scroll;
       }
 
 
@@ -152,4 +183,13 @@
         display: none;
       }
 
-      .judul{}
+      .judul{
+        color: white;
+        text-align: center;
+        margin-bottom: 5px;
+      }
+
+      #fotolah{
+        text-align: center;
+        margin-bottom: 10px;
+      }

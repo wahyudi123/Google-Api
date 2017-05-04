@@ -77,8 +77,8 @@
 
           placename.textContent = place.name;
           placeaddress.textContent = place.formatted_address;
-          phone.textContent = place.rating;
-          website.textContent = place.website;
+          phone.textContent = place.formatted_phone_number;
+          //website.textContent = place.website;
 
           nmtempat.textContent = place.name;
           alamat.textContent = place.formatted_address;
@@ -94,13 +94,14 @@
           document.getElementById('website').appendChild(link);
 
           //foto.textContent = place.icon;
-          foto = place.photos[0].getUrl({maxWidth: 1300, maxHeight: 100});
+          foto = place.photos[0].getUrl({maxWidth: 200, maxHeight: 200});
           // alert(foto.textContent);
 
               var img = document.createElement("IMG");
               img.setAttribute('src', foto + "photo.jpg");
 
               document.getElementById('fotolah').appendChild(img);
+              //foto.removeChild(foto.childNodes[0]);
               //document.getElementById('fotolah').removeChild(img);
 
             // var photoUrl = place.photos[0].getUrl({maxWidth: 400, maxHeight: 400});
