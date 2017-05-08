@@ -7,6 +7,7 @@
         var input = document.getElementById('pac-input');
         var coba = document.getElementById('coba');
         var kotak = document.getElementById('info');
+        var kotak2 = document.getElementById('info2');
 
         var placename = document.getElementById('place-name');
         var placeaddress = document.getElementById('place-address');
@@ -38,13 +39,13 @@
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(coba);
         map.controls[google.maps.ControlPosition.RIGHT_TOP].push(kotak);
 
-
         // Bias the SearchBox results towards current map's viewport.
         var autocomplete = new google.maps.places.Autocomplete(input);
         autocomplete.bindTo('bounds', map);
         var infowindow = new google.maps.InfoWindow();
         var marker = new google.maps.Marker({
-          map: map
+          map: map,
+          draggable:true
         });
         marker.addListener('click', function() {
           infowindow.open(map, marker);
@@ -65,14 +66,17 @@
           }
 
           destinationInput.value = input.value;
+          input.value = "";
           //alert(input.value);
 
           // Set the position of the marker using the place ID and location.
-          marker.setPlace({
+          
+
+          
+           marker.setPlace({
             placeId: place.place_id,
             location: place.geometry.location
-          });
-
+            });
           marker.setVisible(true);
 
           placename.textContent = place.name;
@@ -97,10 +101,15 @@
           foto = place.photos[0].getUrl({maxWidth: 200, maxHeight: 200});
           // alert(foto.textContent);
 
-              var img = document.createElement("IMG");
-              img.setAttribute('src', foto + "photo.jpg");
+              // var img = document.createElement("IMG");
+              // img.setAttribute('src', foto + "photo.jpg");
 
-              document.getElementById('fotolah').appendChild(img);
+              // document.getElementById('fotolah').appendChild(img);
+
+          var image = document.getElementById("fotolah");
+          image.src = foto;
+
+
               //foto.removeChild(foto.childNodes[0]);
               //document.getElementById('fotolah').removeChild(img);
 
@@ -117,34 +126,49 @@
           infowindow.setContent(document.getElementById('infowindow-content'));
 
           infowindow.open(map, marker);
+
+
         });
       }
 
       
       //Fungsi Direction
       function AutocompleteDirectionsHandler(map) {
-        this.map = map;
-        this.originPlaceId = null;
-        this.destinationPlaceId = null;
-        this.travelMode = 'WALKING';
-        //var originInput = document.getElementById('origin-input');
-        //var destinationInput = document.getElementById('destination-input');
-        //var modeSelector = document.getElementById('mode-selector');
-        this.directionsService = new google.maps.DirectionsService;
-        this.directionsDisplay = new google.maps.DirectionsRenderer;
-        this.directionsDisplay.setMap(map);
+        console.log('tes' + this);
+        var me = this;
+        me.map = map;
+        me.originPlaceId = null;
+        me.destinationPlaceId = null;
+        me.travelMode = 'DRIVING';
+        //menentukan direction service dan
+        // display yang akan di munculkan di marker
+        me.directionsService = new google.maps.DirectionsService;
+        me.directionsDisplay = new google.maps.DirectionsRenderer(
+          {draggable:true,
+          map: map,
+          panel: document.getElementById('total')});
+
+        me.directionsDisplay.addListener('directions_changed', function() {
+          computeTotalDistance(me.directionsDisplay.getDirections());
+          alert("tess");
+        });
+       
+
+        //hari ini
+        // this.directionsDisplay.setMap(map);
 
         var originAutocomplete = new google.maps.places.Autocomplete(
             originInput, {placeIdOnly: true});
         var destinationAutocomplete = new google.maps.places.Autocomplete(
             destinationInput, {placeIdOnly: true});
 
-        this.setupClickListener('changemode-walking', 'WALKING');
-        this.setupClickListener('changemode-transit', 'TRANSIT');
-        this.setupClickListener('changemode-driving', 'DRIVING');
+        me.setupClickListener('changemode-walking', 'WALKING');
+        me.setupClickListener('changemode-transit', 'TRANSIT');
+        me.setupClickListener('changemode-driving', 'DRIVING');
+        me.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+        me.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
 
-        this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
-        this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+        
 
         // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
         // this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(destinationInput);
@@ -156,6 +180,7 @@
       // Sets a listener on a radio button to change the filter type on Places
       // Autocomplete.
       AutocompleteDirectionsHandler.prototype.setupClickListener = function(id, mode) {
+        console.log(this);
         var radioButton = document.getElementById(id);
         var me = this;
         radioButton.addEventListener('click', function() {
@@ -166,14 +191,18 @@
 
       AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
         var me = this;
+        alert(me);
         autocomplete.bindTo('bounds', this.map);
         autocomplete.addListener('place_changed', function() {
+          
           var place = autocomplete.getPlace();
+          alert("testetee"); 
           if (!place.place_id) {
             window.alert("Please select an option from the dropdown list.");
             return;
           }
-          if (mode === 'ORIG') {
+          if (mode === 'ORIG'){
+            //pengecekan destination yang terlebih dahulu 
             me.originPlaceId = place.place_id;
           } else {
             me.destinationPlaceId = place.place_id;
@@ -190,12 +219,13 @@
           return;
         }
         var me = this;
-
+        this.directionsDisplay.setMap(map);
         this.directionsService.route({  
           origin: {'placeId': this.originPlaceId},
           destination: {'placeId': this.destinationPlaceId},
-          travelMode: this.travelMode
-        }, 
+          travelMode: this.travelMode,
+          avoidTolls: true
+        },
         function(response, status) {
           if (status === 'OK') {
             me.directionsDisplay.setDirections(response);
@@ -204,6 +234,17 @@
           }
         });
       };
+
+      function computeTotalDistance(result) {
+        var total = 0;
+        var myroute = result.routes[0];
+        alert(myroute);
+        for (var i = 0; i < myroute.legs.length; i++) {
+          total += myroute.legs[i].distance.value;
+        }
+        total = total / 1000;
+        document.getElementById('total').innerHTML = total + ' km';
+      }
   
     function tukar(){      
       c = destinationInput.value;
@@ -213,16 +254,29 @@
 
     $(document).ready(function(){
         $("#coba").click(function(){
-            $("#mode-selector").fadeToggle();
-            $("#origin-input").fadeToggle();
-            $("#destination-input").fadeToggle();
-            $("#tukar").fadeToggle();
+            $(".kotak").slideDown();
+            $("#mode-selector").slideDown();
+            $("#origin-input").slideDown();
+            $("#destination-input").slideDown();
+            $("#tukar").slideDown();
+           
+            $(".infoo2").slideDown();
+            $(".infoo").hide();
+           
+            
         });
     });
 
     $(document).ready(function(){
         $("#pac-input").change(function(){
-            $(".kotak").show();
-            $(".infoo").show();
+            $(".kotak").slideDown();
+            $(".infoo").slideDown();
+            $("#distance").hide();
+            $(".infoo2").hide();
+            $("#mode-selector").hide();
+            $("#origin-input").hide();
+            $("#destination-input").hide();
+            $("#tukar").hide();
+           
         });
     });

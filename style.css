@@ -168,7 +168,7 @@
 
       .kotak{
         height: 500px;
-      	background-color: #753535;
+      	background-color: #afafaf;
       	width: 300px;
       	margin-right: 20px;
       	padding: 20px;
@@ -183,6 +183,23 @@
         display: none;
       }
 
+      .kotak2{
+        height: 500px;
+        background-color: #753535;
+        width: 300px;
+        margin-right: 20px;
+        padding: 20px;
+        opacity: 1;
+        display: none;
+        overflow: scroll;
+      }
+
+
+      .infoo2{
+        color: #000000;
+        display: none;
+      }
+
       .judul{
         color: white;
         text-align: center;
@@ -193,3 +210,80 @@
         text-align: center;
         margin-bottom: 10px;
       }
+
+      #phone{
+        margin-left: 5px;
+        text-align: justify;
+      }
+
+      #place-address{
+        margin-left: 5px;
+        text-align: justify;
+      }
+
+      #website{
+        margin-left: 5px;
+        text-align: justify;
+      }
+
+       #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        overflow: scroll;
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 12px;
+      } 
+
+      .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+      }
+
+      .tooltip .tooltiptext {
+          visibility: hidden;
+          width: 120px;
+          background-color: black;
+          color: #fff;
+          text-align: center;
+          border-radius: 6px;
+          padding: 5px 0;
+          position: absolute;
+          z-index: 1;
+          top: 150%;
+          left: 50%;
+          margin-left: -60px;
+      }
+
+      .tooltip .tooltiptext::after {
+          content: "";
+          position: absolute;
+          bottom: 100%;
+          left: 50%;
+          margin-left: -5px;
+          border-width: 5px;
+          border-style: solid;
+          border-color: transparent transparent black transparent;
+      }
+
+      .tooltip:hover .tooltiptext {
+          visibility: visible;
+      }
+
+      #distance{
+        color: white;
+      }
+      #total{
+        color: white;
+      }                                                                                                                                                                                                                                        
