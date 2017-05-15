@@ -65,7 +65,7 @@
             map.setZoom(17);
           }
 
-          destinationInput.value = input.value;
+          //destinationInput.value = input.value;
           input.value = "";
           //alert(input.value);
 
@@ -150,7 +150,7 @@
 
         me.directionsDisplay.addListener('directions_changed', function() {
           computeTotalDistance(me.directionsDisplay.getDirections());
-          alert("tess");
+          //alert("tess") 1;
         });
        
 
@@ -191,12 +191,12 @@
 
       AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(autocomplete, mode) {
         var me = this;
-        alert(me);
+        //alert(me);
         autocomplete.bindTo('bounds', this.map);
         autocomplete.addListener('place_changed', function() {
           
           var place = autocomplete.getPlace();
-          alert("testetee"); 
+          //alert("testetee"); 
           if (!place.place_id) {
             window.alert("Please select an option from the dropdown list.");
             return;
@@ -238,7 +238,7 @@
       function computeTotalDistance(result) {
         var total = 0;
         var myroute = result.routes[0];
-        alert(myroute);
+        //alert(myroute);
         for (var i = 0; i < myroute.legs.length; i++) {
           total += myroute.legs[i].distance.value;
         }
