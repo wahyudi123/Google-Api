@@ -23,12 +23,51 @@
         var c;
 
       function initAutocomplete() {
+        
         var map = new google.maps.Map(document.getElementById('map'), {
 
           center: {lat: -6.1753924, lng: 106.8249641},
           zoom: 13,
           mapTypeId: 'roadmap'
+
+
         });
+
+        var markers;
+
+            function placeMarker(location) {
+              if (markers) {
+                markers.setPosition(location);
+
+              } else {
+                markers = new google.maps.Marker({
+                  position: location,
+                  map: map
+                });
+              }
+
+            marker.setVisible(false);
+            infowindow.close(map, markers);
+            }
+        
+          $(document).ready(function(){
+          google.maps.event.addListener(map, 'click', function(event) {
+            placeMarker(event.latLng);
+
+              $(".kotak").slideDown();
+              $(".infoo").slideDown();
+              $("#distance").hide();
+              $(".infoo2").hide();
+              $("#mode-selector").hide();
+              $("#origin-input").hide();
+              $("#destination-input").hide();
+              $("#tukar").hide();
+   
+              
+          });
+        });
+
+
         // direction autocomplete
         new AutocompleteDirectionsHandler(map);
         // direction autocomplete
@@ -66,6 +105,8 @@
           }
 
           //destinationInput.value = input.value;
+          originInput.value = ""; 
+          destinationInput.value = "";
           input.value = "";
           //alert(input.value);
 
@@ -122,10 +163,10 @@
           //document.getElementById("foto").appendChild(foto);
           //foto.src = foto.textContent;
           
-
+          
           infowindow.setContent(document.getElementById('infowindow-content'));
 
-          infowindow.open(map, marker);
+          infowindow.close(map, marker);
 
 
         });
@@ -150,7 +191,7 @@
 
         me.directionsDisplay.addListener('directions_changed', function() {
           computeTotalDistance(me.directionsDisplay.getDirections());
-          //alert("tess") 1;
+          alert("tess");
         });
        
 
@@ -259,7 +300,7 @@
             $("#origin-input").slideDown();
             $("#destination-input").slideDown();
             $("#tukar").slideDown();
-           
+           $("#distance").slideDown();
             $(".infoo2").slideDown();
             $(".infoo").hide();
            
