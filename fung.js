@@ -19,6 +19,7 @@
         var web = document.getElementById('web');
 
         var foto = document.getElementById('fotolah');
+        var street = document.getElementById('pano');
 
         var c;
 
@@ -35,7 +36,7 @@
 
         var markers;
 
-            function placeMarker(location) {
+            function placeMarker(location,place) {
               if (markers) {
                 markers.setPosition(location);
 
@@ -43,28 +44,51 @@
                 markers = new google.maps.Marker({
                   position: location,
                   map: map
+
                 });
+                 
               }
 
             marker.setVisible(false);
-            infowindow.close(map, markers);
+            //infowindow.close(map, markers);
             }
-        
+          
+           var autocomplete = new google.maps.places.Autocomplete(input);
+           var geocoder = new google.maps.Geocoder(); 
           $(document).ready(function(){
           google.maps.event.addListener(map, 'click', function(event) {
-            placeMarker(event.latLng);
 
-              $(".kotak").slideDown();
-              $(".infoo").slideDown();
-              $("#distance").hide();
-              $(".infoo2").hide();
-              $("#mode-selector").hide();
-              $("#origin-input").hide();
-              $("#destination-input").hide();
-              $("#tukar").hide();
-   
+            placeMarker(event.latLng);
+            alert('You clicked on place:' + event.placeId);
+
+          
+              // $(".kotak").slideDown();
+              // $(".infoo").slideDown();
+              // // $(".kotak").slideUp(1000000);
+              // // $(".infoo").slideUp(1000000);
+              // $("#distance").hide();
+              // $(".infoo2").hide();
+              // $("#mode-selector").hide();
+              // $("#origin-input").hide();
+              // $("#destination-input").hide();
+              // $("#tukar").hide();
+            geocoder.geocode({
+              'latLng': event.latLng
+            }, function(results, status) {
+              if (status == google.maps.GeocoderStatus.OK) {
+               
+                  alert(results);
+                  alert(results[0].formatted_phone_number);
+                  alert(results[0].formatted_address);
+               
+              }
+            });
+
               
           });
+
+          
+
         });
 
 
@@ -90,6 +114,7 @@
           infowindow.open(map, marker);
         });
 
+
         autocomplete.addListener('place_changed', function() {
          infowindow.open(map, marker);
           var place = autocomplete.getPlace();
@@ -103,6 +128,18 @@
             map.setCenter(place.geometry.location);
             map.setZoom(17);
           }
+
+          var panorama = new google.maps.StreetViewPanorama(
+      document.getElementById('pano'), {
+        position: searchBox,
+        pov: {
+          heading: 34,
+          pitch: 10
+        }
+      });
+        alert(panorama);
+      map.setStreetView(panorama);
+
 
           //destinationInput.value = input.value;
           originInput.value = ""; 
@@ -139,7 +176,7 @@
           document.getElementById('website').appendChild(link);
 
           //foto.textContent = place.icon;
-          foto = place.photos[0].getUrl({maxWidth: 200, maxHeight: 200});
+          foto = place.photos[0].getUrl({maxWidth: 200  , maxHeight: 200});
           // alert(foto.textContent);
 
               // var img = document.createElement("IMG");
@@ -169,6 +206,7 @@
           infowindow.close(map, marker);
 
 
+
         });
       }
 
@@ -191,7 +229,9 @@
 
         me.directionsDisplay.addListener('directions_changed', function() {
           computeTotalDistance(me.directionsDisplay.getDirections());
-          alert("tess");
+          //alert("tess");
+          
+            markers.setVisible(false);
         });
        
 
@@ -259,6 +299,7 @@
           console.log(this.destinationPlaceId);
           return;
         }
+
         var me = this;
         this.directionsDisplay.setMap(map);
         this.directionsService.route({  
@@ -300,7 +341,7 @@
             $("#origin-input").slideDown();
             $("#destination-input").slideDown();
             $("#tukar").slideDown();
-           $("#distance").slideDown();
+            $("#distance").slideDown();
             $(".infoo2").slideDown();
             $(".infoo").hide();
            
